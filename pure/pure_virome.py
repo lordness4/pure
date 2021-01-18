@@ -12,7 +12,7 @@ def runVirSorter(virome_dir, vs_db_dir, infile, logdir):
     with open(logfile, "w") as logfile:
         subprocess.call(command, shell=True, stdout=logfile, stderr=logfile)
 
-def runMarvel():
+def runMarvel(virome_db, marvel_bin, marvel_threads):
     # bins are created
     logfile = os.path.join(logdir, "marvel.log")
 

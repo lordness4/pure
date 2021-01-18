@@ -1,6 +1,7 @@
 {
     "virsorter_db_path": "/home/domi/Documents/promotion/mvome_pipeline/dbs",
     "marvel_bin": "/home/domi/Documents/promotion/mvome_pipeline/bin/MARVEL/marvel_bins.py",
+    "marvel_threads": 4,
     "dvf_bin": "/home/domi/Documents/promotion/mvome_pipeline/bin/DeepVirFinder/dvf.py",
     "dvf_models": "/home/domi/Documents/promotion/mvome_pipeline/bin/DeepVirFinder/models",
     "dvf_cutoff_len": 1000,

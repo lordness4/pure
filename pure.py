@@ -54,7 +54,7 @@ if not (os.path.exists(reads1) or os.path.exists(reads2)):
     print("cannot find reads file: ")
     print("either {} or {} not found. ".format(reads1, reads2))
     print("exiting...")
-    exit()
+    # exit()
 
 output_dir = args.output_dir
 output_dir = os.path.abspath(output_dir)
@@ -63,13 +63,13 @@ if os.path.exists(output_dir):
     print("output directory already exists: ")
     print("{}".format(output_dir))
     print("exiting...")
-    exit()
+    # exit()
 
 contig_file = args.contigs_file
 
 ################################################################################ WORKS
 # create Structure
-createStructure(output_dir)
+# createStructure(output_dir)
 
 # log directory
 logdir = os.path.join(output_dir, "log")
@@ -90,24 +90,24 @@ contig_file = os.path.join(output_dir, "assembly/contigs.fasta")
 
 ################################################################################ WORKS
 # deduplicate using bbmap
-deduplicateContigs(contig_file=contig_file, assembly_dir=assembly_dir, logdir=logdir)
+# deduplicateContigs(contig_file=contig_file, assembly_dir=assembly_dir, logdir=logdir)
 
 # map reads against deduplicated contigs in order to create bins
 binning_dir = os.path.join(output_dir, "bins")
-createBins(reads1=reads1, reads2=reads2, contig_file=contig_file, logdir=logdir,
-           outdir=binning_dir,
-           metabat_m=config["metabat_m"],
-           metabat_s=config["metabat_s"])
+# createBins(reads1=reads1, reads2=reads2, contig_file=contig_file, logdir=logdir,
+#            outdir=binning_dir,
+#            metabat_m=config["metabat_m"],
+#            metabat_s=config["metabat_s"])
 
 
 ################################################################################
 virome_dir = os.path.join(output_dir, "virome")
 
 # run virsorter
-# runVirSorter(virome_dir=virome_dir,
-             # vs_db_dir=config["virsorter_db_path"],
-             # infile=contig_file,
-             # logdir=logdir)
+runVirSorter(virome_dir=virome_dir,
+             vs_db_dir=config["virsorter_db_path"],
+             infile=contig_file,
+             logdir=logdir)
 
 # run marvel
 # runMarvel()

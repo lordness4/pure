@@ -4,7 +4,10 @@ import subprocess
 def runVirSorter(virome_dir, vs_db_dir, infile, logdir):
     logfile = os.path.join(logdir, "virsorter.log")
     wd = os.path.join(virome_dir, "virsorter")
-    command = "virsorter run -w {working_dir} -d {vs_db_dir} -i {infile}".format()
+    command = "virsorter run -w {working_dir} -d {vs_db_dir} -i {infile}".format(
+        working_dir=virome_dir,
+        vs_db_dir=vs_db_dir,
+        infile=infile)
     #rm-tmpdir
     with open(logfile, "w") as logfile:
         subprocess.call(command, shell=True, stdout=logfile, stderr=logfile)

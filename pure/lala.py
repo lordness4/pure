@@ -1,2 +1,0 @@
-def lala():
-    print("lala")

@@ -92,9 +92,11 @@ contig_file = os.path.join(output_dir, "assembly/contigs.fasta")
 # deduplicate using bbmap
 # deduplicateContigs(contig_file=contig_file, assembly_dir=assembly_dir, logdir=logdir)
 
+contigs_deduplicated = os.path.join(output_dir, "assembly/contigs_deduplicated.fasta")
+
 # map reads against deduplicated contigs in order to create bins
 binning_dir = os.path.join(output_dir, "bins")
-# createBins(reads1=reads1, reads2=reads2, contig_file=contig_file, logdir=logdir,
+# createBins(reads1=reads1, reads2=reads2, contig_file=contigs_deduplicated, logdir=logdir,
 #            outdir=binning_dir,
 #            metabat_m=config["metabat_m"],
 #            metabat_s=config["metabat_s"])
@@ -106,7 +108,7 @@ virome_dir = os.path.join(output_dir, "virome")
 # run virsorter
 runVirSorter(virome_dir=virome_dir,
              vs_db_dir=config["virsorter_db_path"],
-             infile=contig_file,
+             infile=contigs_deduplicated,
              logdir=logdir)
 
 # run marvel
@@ -114,10 +116,18 @@ runVirSorter(virome_dir=virome_dir,
 
 # run deepvirfinder
 # runDeepVirFinder(virome_dir=virome_dir,
-#                  infile=contig_file,
+#                  infile=contigs_deduplicated,
 #                  logdir=logdir,
 #                  dvf_bin=config["dvf_bin"],
 #                  dvf_models=config["dvf_models"],
 #                  dvf_cutoff_len=config["dvf_cutoff_len"],
 #                  activator_script=config["activator_script"],
 #                  deactivator_script=config["deactivator_script"])
+
+
+################################################################################
+# plasmidome part
+
+
+################################################################################
+# gather report part

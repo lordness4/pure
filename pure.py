@@ -12,7 +12,7 @@ from pure_binning import createBins
 
 ################################################################################
 # config
-config_file = "pure.conf"
+config_file = "config.txt"
 
 with open(config_file, "r") as f:
     data = f.read()

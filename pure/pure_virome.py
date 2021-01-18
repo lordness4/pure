@@ -2,6 +2,12 @@ import os
 import subprocess
 
 def runVirSorter(virome_dir, vs_db_dir, infile, logdir):
+    """
+    Runs VirSorter2.0 on the infile, using the VirSorter2 database provided in
+    vs_db_dir while logging to logdir/virsorter.log. Output is placed in
+    virome_dir/virsorter/ .
+    """
+
     logfile = os.path.join(logdir, "virsorter.log")
     wd = os.path.join(virome_dir, "virsorter")
     command = "virsorter run -w {working_dir} -d {vs_db_dir} -i {infile}".format(
@@ -12,9 +18,17 @@ def runVirSorter(virome_dir, vs_db_dir, infile, logdir):
     with open(logfile, "w") as logfile:
         subprocess.call(command, shell=True, stdout=logfile, stderr=logfile)
 
-def runMarvel(virome_db, marvel_bin, marvel_threads):
-    # bins are created
+def runMarvel(output_dir, marvel_bin, marvel_threads, logdir):
     logfile = os.path.join(logdir, "marvel.log")
+    bins_dir = os.path.join()
+
+    command = "python3 {marvel_bin} -i {bins_dir} -t {marvel_threads}".format(
+        marvel_bin=marvel_bin,
+        bins_dir=bins_dir,
+        marvel_threads=marvel_threads
+    )
+    with open(logfile, "w") as logfile:
+        subprocess.call(command, shell=True, stdout=logfile, stderr=logfile)
 
     pass
 

@@ -2,12 +2,12 @@ import os
 import argparse
 import sys
 import json
+import shutil
 from pure.pure_structure import createStructure
 from pure.pure_metaspades import runMetaspades
 from pure.pure_virome import runMarvel, runVirSorter, runDeepVirFinder
 from pure.pure_dedup import deduplicateContigs
 from pure.pure_binning import createBins
-
 
 
 ################################################################################
@@ -20,13 +20,22 @@ with open(config_file, "r") as f:
 f.close()
 config = json.loads(data)
 
+
 ################################################################################
 # handle arguments
 parser = argparse.ArgumentParser()
 
-parser.add_argument("--reads1", "-r1", help="<filename> file with forward paired-end reads")
-parser.add_argument("--reads2", "-r2", help="<filename> file with reverse paired-end reads")
-parser.add_argument("--output_dir", "-o", help="<output_dir> directory to store all the resulting files")
+parser.add_argument("--reads1", "-r1",
+                    help="<filename> file with forward paired-end reads", required=True)
+
+parser.add_argument("--reads2", "-r2",
+                    help="<filename> file with reverse paired-end reads", required=True)
+
+parser.add_argument("--output_dir", "-o",
+                    help="<output_dir> directory to store all the resulting files", required=True)
+
+parser.add_argument("--contigs_file", "-c",
+                    help="optional <filename> multifasta file containing all contigs assembled form r1 and r2 (skips assembly)")
 
 args = parser.parse_args()
 
@@ -34,6 +43,7 @@ args = parser.parse_args()
 if len(sys.argv)<7:
     parser.print_help(sys.stderr)
     exit()
+
 
 ################################################################################
 # check if input files are present and output_dir is viable
@@ -53,7 +63,9 @@ if os.path.exists(output_dir):
     print("output directory already exists: ")
     print("{}".format(output_dir))
     print("exiting...")
-    #exit()
+    exit()
+
+contig_file = args.contigs_file
 
 ################################################################################ WORKS
 # create Structure
@@ -62,24 +74,30 @@ createStructure(output_dir)
 # log directory
 logdir = os.path.join(output_dir, "log")
 
+
 ################################################################################ HAS TROUBLE WITH RAM
 # run metaspades
 assembly_dir = os.path.join(output_dir, "assembly")
-# # NOTE: I cant run this locally, not enough RAM
-# runMetaspades(assembly_dir, reads1, reads2, logdir)
+# this only runs when we have no contigs file, else we copy over the contigs_file
+if not contig_file:
+    runMetaspades(assembly_dir, reads1, reads2, logdir)
+else:
+    shutil.copy(contig_file, os.path.join(output_dir, "assembly/contigs.fasta"),
+                follow_symlinks=True)
 
 contig_file = os.path.join(output_dir, "assembly/contigs.fasta")
 
+
 ################################################################################ WORKS
 # deduplicate using bbmap
-# deduplicateContigs(contig_file=contig_file, assembly_dir=assembly_dir, logdir=logdir)
+deduplicateContigs(contig_file=contig_file, assembly_dir=assembly_dir, logdir=logdir)
 
 # map reads against deduplicated contigs in order to create bins
 binning_dir = os.path.join(output_dir, "bins")
-# createBins(reads1=reads1, reads2=reads2, contig_file=contig_file, logdir=logdir,
-#            outdir=binning_dir,
-#            metabat_m=config["metabat_m"],
-#            metabat_s=config["metabat_s"])
+createBins(reads1=reads1, reads2=reads2, contig_file=contig_file, logdir=logdir,
+           outdir=binning_dir,
+           metabat_m=config["metabat_m"],
+           metabat_s=config["metabat_s"])
 
 
 ################################################################################

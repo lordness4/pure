@@ -1,9 +1,6 @@
 import os
 import subprocess
 
-
-
-
 def createBins(reads1, reads2, contig_file, logdir, outdir, metabat_m, metabat_s):
     # workflow from: https://www.hadriengourle.com/tutorials/meta_assembly/
     logfile=os.path.join(logdir, "binning.log")

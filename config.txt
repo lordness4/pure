@@ -4,8 +4,8 @@
     "dvf_bin": "/home/domi/Documents/promotion/mvome_pipeline/bin/DeepVirFinder/dvf.py",
     "dvf_models": "/home/domi/Documents/promotion/mvome_pipeline/bin/DeepVirFinder/models",
     "dvf_cutoff_len": 1000,
-    "activator_script" : "/home/domi/Documents/promotion/mvome_pipeline/pure/activate_conda_env.sh",
-    "deactivator_script" : "/home/domi/Documents/promotion/mvome_pipeline/pure/deactivate_conda_env.sh",
+    "activator_script" : "/home/domi/Documents/promotion/mvome_pipeline/pure/pure/scripts/activate_conda_env.sh",
+    "deactivator_script" : "/home/domi/Documents/promotion/mvome_pipeline/pure/pure/scripts/deactivate_conda_env.sh",
     "metabat_m" : 1500,
     "metabat_s" : 10000
 }

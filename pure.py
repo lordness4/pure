@@ -2,11 +2,11 @@ import os
 import argparse
 import sys
 import json
-from pure_structure import createStructure
-from pure_metaspades import runMetaspades
-from pure_virome import runMarvel, runVirSorter, runDeepVirFinder
-from pure_dedup import deduplicateContigs
-from pure_binning import createBins
+from pure.pure_structure import createStructure
+from pure.pure_metaspades import runMetaspades
+from pure.pure_virome import runMarvel, runVirSorter, runDeepVirFinder
+from pure.pure_dedup import deduplicateContigs
+from pure.pure_binning import createBins
 
 
 
@@ -57,7 +57,7 @@ if os.path.exists(output_dir):
 
 ################################################################################ WORKS
 # create Structure
-# createStructure(output_dir)
+createStructure(output_dir)
 
 # log directory
 logdir = os.path.join(output_dir, "log")
@@ -76,10 +76,10 @@ contig_file = os.path.join(output_dir, "assembly/contigs.fasta")
 
 # map reads against deduplicated contigs in order to create bins
 binning_dir = os.path.join(output_dir, "bins")
-createBins(reads1=reads1, reads2=reads2, contig_file=contig_file, logdir=logdir,
-           outdir=binning_dir,
-           metabat_m=config["metabat_m"],
-           metabat_s=config["metabat_s"])
+# createBins(reads1=reads1, reads2=reads2, contig_file=contig_file, logdir=logdir,
+#            outdir=binning_dir,
+#            metabat_m=config["metabat_m"],
+#            metabat_s=config["metabat_s"])
 
 
 ################################################################################

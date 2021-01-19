@@ -1,6 +1,0 @@
-name: pure_mvome
-channels:
-  - conda-forge
-  - bioconda
-  - defaults
-prefix: /home/domi/bin/anaconda3/envs/pure_mvome

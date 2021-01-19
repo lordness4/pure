@@ -96,10 +96,10 @@ contigs_deduplicated = os.path.join(output_dir, "assembly/contigs_deduplicated.f
 
 # map reads against deduplicated contigs in order to create bins
 binning_dir = os.path.join(output_dir, "bins")
-# createBins(reads1=reads1, reads2=reads2, contig_file=contigs_deduplicated, logdir=logdir,
-#            outdir=binning_dir,
-#            metabat_m=config["metabat_m"],
-#            metabat_s=config["metabat_s"])
+createBins(reads1=reads1, reads2=reads2, contig_file=contigs_deduplicated, logdir=logdir,
+           outdir=binning_dir,
+           metabat_m=config["metabat_m"],
+           metabat_s=config["metabat_s"])
 
 
 ################################################################################
@@ -112,10 +112,10 @@ virome_dir = os.path.join(output_dir, "virome")
 #              logdir=logdir)
 
 # run marvel
-runMarvel(output_dir=output_dir,
-          marvel_bin=config["marvel_bin"],
-          marvel_threads=config["marvel_threads"],
-          logdir=logdir)
+# runMarvel(output_dir=output_dir,
+#           marvel_bin=config["marvel_bin"],
+#           marvel_threads=config["marvel_threads"],
+#           logdir=logdir)
 
 # run deepvirfinder
 # runDeepVirFinder(virome_dir=virome_dir,

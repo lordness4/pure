@@ -9,7 +9,7 @@ def runVirSorter(virome_dir, vs_db_dir, infile, logdir):
     virome_dir/virsorter/ .
     """
 
-    logfile = os.path.join(logdir, "virsorter.log")conda env export --from-history --name my_env > myenv.yml
+    logfile = os.path.join(logdir, "virsorter.log")
     wd = os.path.join(virome_dir, "virsorter")
     command = "virsorter run -w {working_dir} -d {vs_db_dir} -i {infile}".format(
         working_dir=wd,

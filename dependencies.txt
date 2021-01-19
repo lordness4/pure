@@ -1,11 +1,23 @@
+conda stuff
+--------------
+binning
+- conda install -c agbiome bbtools
+
+prokka
+- conda install -c conda-forge -c bioconda -c defaults prokka
+
+VirSorter
+- conda install -c bioconda virsorter=2.0
+- needs setup
+
+metabat2
+- conda install -c bioconda metabat2
+
+external
+--------------
 MARVELgit clone
 https://github.com/LaboratorioBioinformatica/MARVEL
 - clone repository
-- requires prokka and hmmer
-
-VirSorter
-- via conda
-- needs setup and dbs installed (10min)
 
 deepvirfinder
 https://github.com/jessieren/DeepVirFinder

@@ -2,7 +2,7 @@ import os
 
 def createStructure(output_dir):
     """
-    Creates the structure used for the pipeline pure.  
+    Creates the structure used for the pipeline pure.
     """
     os.mkdir(output_dir)
     tree = ["bins", "assembly", "virome", "plasmidome", "log"]

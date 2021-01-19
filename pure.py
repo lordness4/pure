@@ -106,13 +106,16 @@ binning_dir = os.path.join(output_dir, "bins")
 virome_dir = os.path.join(output_dir, "virome")
 
 # run virsorter
-runVirSorter(virome_dir=virome_dir,
-             vs_db_dir=config["virsorter_db_path"],
-             infile=contigs_deduplicated,
-             logdir=logdir)
+# runVirSorter(virome_dir=virome_dir,
+#              vs_db_dir=config["virsorter_db_path"],
+#              infile=contigs_deduplicated,
+#              logdir=logdir)
 
 # run marvel
-# runMarvel()
+runMarvel(output_dir=output_dir,
+          marvel_bin=config["marvel_bin"],
+          marvel_threads=config["marvel_threads"],
+          logdir=logdir)
 
 # run deepvirfinder
 # runDeepVirFinder(virome_dir=virome_dir,

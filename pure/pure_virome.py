@@ -9,7 +9,7 @@ def runVirSorter(virome_dir, vs_db_dir, infile, logdir):
     virome_dir/virsorter/ .
     """
 
-    logfile = os.path.join(logdir, "virsorter.log")
+    logfile = os.path.join(logdir, "virsorter.log")conda env export --from-history --name my_env > myenv.yml
     wd = os.path.join(virome_dir, "virsorter")
     command = "virsorter run -w {working_dir} -d {vs_db_dir} -i {infile}".format(
         working_dir=wd,
@@ -32,7 +32,7 @@ def runMarvel(output_dir, marvel_bin, marvel_threads, logdir):
     # this line gives me the name of the unknown folder in bins/
     bins_dir = [ f.path for f in os.scandir(os.path.join(output_dir, "bins")) if f.is_dir() ]
     bins_dir = bins_dir[0]
-    
+
     virome_dir = os.path.join(output_dir, "virome")
     marvel_outdir = os.path.join(virome_dir, "marvel")
     marvel_dir = os.path.dirname(marvel_bin)

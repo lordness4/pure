@@ -8,7 +8,7 @@ from pure.pure_metaspades import runMetaspades
 from pure.pure_virome import runMarvel, runVirSorter, runDeepVirFinder
 from pure.pure_dedup import deduplicateContigs
 from pure.pure_binning import createBins
-
+from pure.pure_cleaner import cleanAssemblyDir, cleanBinningDir, cleanViromeDir, cleanPlasmidomeDir
 
 ################################################################################
 # config
@@ -37,6 +37,9 @@ parser.add_argument("--output_dir", "-o",
 parser.add_argument("--contigs_file", "-c",
                     help="optional <filename> multifasta file containing all contigs assembled form r1 and r2 (skips assembly)")
 
+parser.add_argument("--cleanup", "-cu",
+                    help="optional <TRUE/FALSE> flag. Default=FALSE. If TRUE, all intermediate files will be deleted, in order to save space.)
+
 args = parser.parse_args()
 
 # print help if not enough arguments
@@ -46,7 +49,7 @@ if len(sys.argv)<7:
 
 
 ################################################################################
-# check if input files are present and output_dir is viable
+# check arguments given
 reads1 = args.reads1
 reads2 = args.reads2
 
@@ -65,7 +68,11 @@ if os.path.exists(output_dir):
     print("exiting...")
     # exit()
 
+# contig file given by the user
 contig_file = args.contigs_file
+# should we clean up afterwards?
+cleanup = args.cleanup
+
 
 ################################################################################ WORKS
 # create Structure
@@ -112,20 +119,20 @@ virome_dir = os.path.join(output_dir, "virome")
 #              logdir=logdir)
 
 # run marvel
-runMarvel(output_dir=output_dir,
-          marvel_bin=config["marvel_bin"],
-          marvel_threads=config["marvel_threads"],
-          logdir=logdir)
+# runMarvel(output_dir=output_dir,
+#           marvel_bin=config["marvel_bin"],
+#           marvel_threads=config["marvel_threads"],
+#           logdir=logdir)
 
 # run deepvirfinder
-# runDeepVirFinder(virome_dir=virome_dir,
-#                  infile=contigs_deduplicated,
-#                  logdir=logdir,
-#                  dvf_bin=config["dvf_bin"],
-#                  dvf_models=config["dvf_models"],
-#                  dvf_cutoff_len=config["dvf_cutoff_len"],
-#                  activator_script=config["activator_script"],
-#                  deactivator_script=config["deactivator_script"])
+runDeepVirFinder(virome_dir=virome_dir,
+                 infile=contigs_deduplicated,
+                 logdir=logdir,
+                 dvf_bin=config["dvf_bin"],
+                 dvf_models=config["dvf_models"],
+                 dvf_cutoff_len=config["dvf_cutoff_len"],
+                 activator_script=config["activator_script"],
+                 deactivator_script=config["deactivator_script"])
 
 
 ################################################################################
@@ -134,3 +141,8 @@ runMarvel(output_dir=output_dir,
 
 ################################################################################
 # gather report part
+
+
+################################################################################
+# clean up
+if cleanup:

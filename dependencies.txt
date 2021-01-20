@@ -14,7 +14,7 @@ metabat2
 - conda install -c bioconda metabat2
 
 marvel
-- conda install numpy scipy biopython scikit-learn (there is an error, right now I'm trying sckit-learn=0.21.1)
+- conda install numpy scipy biopython sckit-learn=0.21.1
 
 
 external

@@ -1,0 +1,33 @@
+portant for prediction).
+WARNING: MPAPMOLG_22 has 1 or zero appropriate CDS features (those are important for prediction).
+WARNING: MPAPMOLG_23 has 1 or zero appropriate CDS features (those are important for prediction).
+WARNING: IAOOCHPC_1 has 1 or zero appropriate CDS features (those are important for prediction).
+WARNING: IAOOCHPC_2 has 1 or zero appropriate CDS features (those are important for prediction).
+WARNING: IAOOCHPC_3 has 1 or zero appropriate CDS features (those are important for prediction).
+WARNING: IAOOCHPC_4 has 1 or zero appropriate CDS features (those are important for prediction).
+WARNING: IAOOCHPC_6 has 1 or zero appropriate CDS features (those are important for prediction).
+WARNING: LCLFOJEA_1 has 1 or zero appropriate CDS features (those are important for prediction).
+WARNING: LCLFOJEA_3 has 1 or zero appropriate CDS features (those are important for prediction).
+WARNING: LCLFOJEA_4 has 1 or zero appropriate CDS features (those are important for prediction).
+WARNING: LCLFOJEA_5 has 1 or zero appropriate CDS features (those are important for prediction).
+WARNING: LCLFOJEA_6 has 1 or zero appropriate CDS features (those are important for prediction).
+**Extracted features from 58 bins
+
+**2021-01-20 13:35:12.240961
+**Doing the machine learning prediction...
+
+/home/domi/bin/anaconda3/lib/python3.7/site-packages/sklearn/base.py:306: UserWarning: Trying to unpickle estimator DecisionTreeClassifier from version 0.19.1 when using version 0.21.3. This might lead to breaking code or invalid results. Use at your own risk.
+  UserWarning)
+/home/domi/bin/anaconda3/lib/python3.7/site-packages/sklearn/base.py:306: UserWarning: Trying to unpickle estimator RandomForestClassifier from version 0.19.1 when using version 0.21.3. This might lead to breaking code or invalid results. Use at your own risk.
+  UserWarning)
+**Found phages in this sample!!!
+**Bins predicted as phages and probabilities according to Random Forest algorithm:
+*** bin.27 ->  85.61 %
+*** bin.48 ->  83.54 %
+*** bin.42 ->  88.95 %
+**Finished Machine learning predictions!
+
+**Bins predicted as phages are in the folder: ../../test_pure/o2/bins/contigs_deduplicated.fasta.metabat-bins10000/results/phage_bins/
+
+**2021-01-20 13:35:12.644147
+**Thank you for using Marvel!

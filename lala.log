@@ -1,0 +1,16 @@
+# conda environments:
+#
+                         /home/domi/Documents/promotion/mvome_pipeline/dbs/conda_envs/e68c3133
+base                     /home/domi/bin/anaconda3
+bioinf                   /home/domi/bin/anaconda3/envs/bioinf
+dataScience              /home/domi/bin/anaconda3/envs/dataScience
+dvf                      /home/domi/bin/anaconda3/envs/dvf
+eggnogg                  /home/domi/bin/anaconda3/envs/eggnogg
+islandpath               /home/domi/bin/anaconda3/envs/islandpath
+pure                  *  /home/domi/bin/anaconda3/envs/pure
+python_games             /home/domi/bin/anaconda3/envs/python_games
+snakemake                /home/domi/bin/anaconda3/envs/snakemake
+spyder                   /home/domi/bin/anaconda3/envs/spyder
+test_doublespades        /home/domi/bin/anaconda3/envs/test_doublespades
+vContact2                /home/domi/bin/anaconda3/envs/vContact2
+

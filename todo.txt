@@ -1,0 +1,24 @@
+- make dvf run always, not only when the dvf env is active
+- maybe create 4 conda envs:
+  1. pure
+  2. virome
+  3. plasmidome
+  4. dvf
+
+- learn how to properly export a conda env
+- learn how to switch conda envs from within python or a different way to use them
+
+bigger things:
+- include plasmidome tools
+- write the cleanup functions
+- write a setup function that checks for dependencies, installs stuff for virsorter, the models for dvf etc (optional, not my problem)
+- write the report thingy
+
+
+Calendar:
+Thursday    -   include plasmidome tool
+Friday      -   write report, with decision making
+Saturday    -   check how to use conda properly
+Sunday      -   write the cleanup stuff
+Monday      -   port everything to ld-x and make it work over there
+Tuesday     -   finishing touches

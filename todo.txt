@@ -21,4 +21,4 @@ Friday      -   write report, with decision making
 Saturday    -   check how to use conda properly
 Sunday      -   write the cleanup stuff
 Monday      -   port everything to ld-x and make it work over there
-Tuesday     -   finishing touches
+Tuesday     -   finishing touches, write README

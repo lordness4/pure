@@ -3,6 +3,7 @@ import argparse
 import sys
 import json
 import shutil
+from Bio import SeqIO
 from pure.pure_structure import createStructure
 from pure.pure_metaspades import runMetaspades
 from pure.pure_virome import runMarvel, runVirSorter, runDeepVirFinder
@@ -10,7 +11,7 @@ from pure.pure_dedup import deduplicateContigs
 from pure.pure_binning import createBins
 from pure.pure_cleaner import cleanAssemblyDir, cleanBinningDir, cleanViromeDir, cleanPlasmidomeDir
 
-################################################################################
+################################################################################ WORKS
 # config
 config_file = "config.txt"
 
@@ -21,7 +22,7 @@ f.close()
 config = json.loads(data)
 
 
-################################################################################
+################################################################################ WORKS
 # handle arguments
 parser = argparse.ArgumentParser()
 
@@ -38,7 +39,7 @@ parser.add_argument("--contigs_file", "-c",
                     help="optional <filename> multifasta file containing all contigs assembled form r1 and r2 (skips assembly)")
 
 parser.add_argument("--cleanup", "-cu",
-                    help="optional <TRUE/FALSE> flag. Default=FALSE. If TRUE, all intermediate files will be deleted, in order to save space.)
+                    help="optional <TRUE/FALSE> flag. Default=FALSE. If TRUE, all intermediate files will be deleted, in order to save space.")
 
 args = parser.parse_args()
 
@@ -48,7 +49,7 @@ if len(sys.argv)<7:
     exit()
 
 
-################################################################################
+################################################################################ WORKS
 # check arguments given
 reads1 = args.reads1
 reads2 = args.reads2
@@ -57,7 +58,7 @@ if not (os.path.exists(reads1) or os.path.exists(reads2)):
     print("cannot find reads file: ")
     print("either {} or {} not found. ".format(reads1, reads2))
     print("exiting...")
-    # exit()
+    exit()
 
 output_dir = args.output_dir
 output_dir = os.path.abspath(output_dir)
@@ -66,7 +67,7 @@ if os.path.exists(output_dir):
     print("output directory already exists: ")
     print("{}".format(output_dir))
     print("exiting...")
-    # exit()
+    exit()
 
 # contig file given by the user
 contig_file = args.contigs_file
@@ -76,7 +77,7 @@ cleanup = args.cleanup
 
 ################################################################################ WORKS
 # create Structure
-# createStructure(output_dir)
+createStructure(output_dir)
 
 # log directory
 logdir = os.path.join(output_dir, "log")
@@ -97,8 +98,7 @@ contig_file = os.path.join(output_dir, "assembly/contigs.fasta")
 
 ################################################################################ WORKS
 # deduplicate using bbmap
-# deduplicateContigs(contig_file=contig_file, assembly_dir=assembly_dir, logdir=logdir)
-
+deduplicateContigs(contig_file=contig_file, assembly_dir=assembly_dir, logdir=logdir)
 contigs_deduplicated = os.path.join(output_dir, "assembly/contigs_deduplicated.fasta")
 
 # map reads against deduplicated contigs in order to create bins
@@ -109,13 +109,34 @@ binning_dir = os.path.join(output_dir, "bins")
 #            metabat_s=config["metabat_s"])
 
 
-################################################################################
+################################################################################ WORKS
+# filter contigs file by length.
+# NOTE:
+# 1. I can remove the dvf_cutoff_len (since it would be redundant) and
+# 2. I should think about the figures in the end: do the incorporate the shorter sequences?
+
+
+def filterByLength(contigs_input, contigs_output, cutoff_len):
+    contigs_filtered = []
+    for record in SeqIO.parse(contigs_input, "fasta"):
+        if len(record.seq) >= cutoff_len:
+            contigs_filtered.append(record)
+
+    SeqIO.write(contigs_filtered, contigs_output, "fasta")
+
+
+# from here on out: all programs only work on the filtered contigs
+contigs_final = os.path.join(assembly_dir, "contigs_final.fasta")
+filterByLength(contigs_deduplicated, contigs_final, config["cutoff_len"])
+
+
+################################################################################ PROBLEMS WITH CONDA
 virome_dir = os.path.join(output_dir, "virome")
 
 # run virsorter
 # runVirSorter(virome_dir=virome_dir,
 #              vs_db_dir=config["virsorter_db_path"],
-#              infile=contigs_deduplicated,
+#              infile=contigs_final,
 #              logdir=logdir)
 
 # run marvel
@@ -125,14 +146,13 @@ virome_dir = os.path.join(output_dir, "virome")
 #           logdir=logdir)
 
 # run deepvirfinder
-runDeepVirFinder(virome_dir=virome_dir,
-                 infile=contigs_deduplicated,
-                 logdir=logdir,
-                 dvf_bin=config["dvf_bin"],
-                 dvf_models=config["dvf_models"],
-                 dvf_cutoff_len=config["dvf_cutoff_len"],
-                 activator_script=config["activator_script"],
-                 deactivator_script=config["deactivator_script"])
+# runDeepVirFinder(virome_dir=virome_dir,
+#                  infile=contigs_final,
+#                  logdir=logdir,
+#                  dvf_bin=config["dvf_bin"],
+#                  dvf_models=config["dvf_models"],
+#                  activator_script=config["activator_script"],
+#                  deactivator_script=config["deactivator_script"])
 
 
 ################################################################################
@@ -146,3 +166,4 @@ runDeepVirFinder(virome_dir=virome_dir,
 ################################################################################
 # clean up
 if cleanup:
+    pass

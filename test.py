@@ -1,13 +1,16 @@
-import os
-import subprocess
+from Bio import SeqIO
+from Bio.Seq import Seq
 
-f = "lala.log"
+contigs_file = "../data/contigs.fasta"
+contigs_filtered_file = "../data/contigs_filtered.fasta"
+cutoff_len = 1000
 
-with open(f, "w") as log:
-    subprocess.call("conda env list", shell=True, stdout=log, stderr=log)
 
-#
-# Traceback (most recent call last):
-#   File "/home/domi/Documents/promotion/mvome_pipeline/bin/MARVEL/marvel_bins.py", line 314, in <module>
-#     pickle_model = pickle.load(file)
-# ModuleNotFoundError: No module named 'sklearn.ensemble.forest'
+def filterByLength(contigs_file, contigs_filtered_file, cutoff_len):
+    contigs_filtered = []
+    for record in SeqIO.parse(contigs_file, "fasta"):
+        if len(record.seq) >= cutoff_len:
+            contigs_filtered.append(record)
+    SeqIO.write(contigs_filtered, contigs_filtered_file, "fasta")
+
+filterByLength(contigs_file, contigs_filtered_file, cutoff_len)

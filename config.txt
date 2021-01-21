@@ -4,7 +4,7 @@
     "marvel_threads": 4,
     "dvf_bin": "/home/domi/Documents/promotion/mvome_pipeline/bin/DeepVirFinder/dvf.py",
     "dvf_models": "/home/domi/Documents/promotion/mvome_pipeline/bin/DeepVirFinder/models",
-    "dvf_cutoff_len": 1000,
+    "cutoff_len": 1000,
     "activator_script" : "/home/domi/Documents/promotion/mvome_pipeline/pure/pure/scripts/activate_conda_env.sh",
     "deactivator_script" : "/home/domi/Documents/promotion/mvome_pipeline/pure/pure/scripts/deactivate_conda_env.sh",
     "metabat_m" : 1500,

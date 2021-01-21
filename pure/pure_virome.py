@@ -43,8 +43,7 @@ def runMarvel(output_dir, marvel_bin, marvel_threads, logdir):
     command = "python3 {marvel_bin} -i {bins_dir} -t {marvel_threads}".format(
         marvel_bin=marvel_bin,
         bins_dir=bins_dir,
-        marvel_threads=marvel_threads
-    )
+        marvel_threads=marvel_threads)
     with open(logfile, "w") as logfile:
         subprocess.call(command, shell=True, stdout=logfile, stderr=logfile)
     os.chdir(cwd)
@@ -54,20 +53,19 @@ def runMarvel(output_dir, marvel_bin, marvel_threads, logdir):
 
 
 
-def runDeepVirFinder(virome_dir, infile, logdir, dvf_bin, dvf_models, dvf_cutoff_len, activator_script, deactivator_script):
+def runDeepVirFinder(virome_dir, infile, logdir, dvf_bin, dvf_models, activator_script, deactivator_script):
     logfile = os.path.join(logdir, "deepvirfinder.log")
     dvf_output_dir = os.path.join(virome_dir, "deepvirfinder")
 
     # then run dvf itself
     command = \
     "bash {activator_script} &&\
-     python {dvf_bin} -i {infile} -o {dvf_output_dir} -l {dvf_cutoff_len} -m {dvf_models} &&\
+     python {dvf_bin} -i {infile} -o {dvf_output_dir} -m {dvf_models} &&\
      bash {deactivator_script}".format(
          activator_script=activator_script,
          dvf_bin=dvf_bin,
          infile=infile,
          dvf_output_dir=dvf_output_dir,
-         dvf_cutoff_len=dvf_cutoff_len,
          dvf_models=dvf_models,
          deactivator_script=deactivator_script)
 

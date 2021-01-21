@@ -7,6 +7,7 @@ from Bio import SeqIO
 from pure.pure_structure import createStructure
 from pure.pure_metaspades import runMetaspades
 from pure.pure_virome import runMarvel, runVirSorter, runDeepVirFinder
+from pure.pure_plasmidome import runPlasFlow
 from pure.pure_dedup import deduplicateContigs
 from pure.pure_binning import createBins
 from pure.pure_cleaner import cleanAssemblyDir, cleanBinningDir, cleanViromeDir, cleanPlasmidomeDir
@@ -111,9 +112,7 @@ binning_dir = os.path.join(output_dir, "bins")
 
 ################################################################################ WORKS
 # filter contigs file by length.
-# NOTE:
-# 1. I can remove the dvf_cutoff_len (since it would be redundant) and
-# 2. I should think about the figures in the end: do the incorporate the shorter sequences?
+# NOTE: I should think about the figures in the end: do the incorporate the shorter sequences?
 
 
 def filterByLength(contigs_input, contigs_output, cutoff_len):
@@ -157,6 +156,11 @@ virome_dir = os.path.join(output_dir, "virome")
 
 ################################################################################
 # plasmidome part
+plasmidome_dir = os.path.join(output_dir, "plasmidome")
+runPlasFlow(logdir=logdir,
+            plasmidome_dir=plasmidome_dir,
+            infile=contigs_final,
+            plasflow_threshold=config["plasflow_threshold"])
 
 
 ################################################################################

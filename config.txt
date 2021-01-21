@@ -8,5 +8,6 @@
     "activator_script" : "/home/domi/Documents/promotion/mvome_pipeline/pure/pure/scripts/activate_conda_env.sh",
     "deactivator_script" : "/home/domi/Documents/promotion/mvome_pipeline/pure/pure/scripts/deactivate_conda_env.sh",
     "metabat_m" : 1500,
-    "metabat_s" : 10000
+    "metabat_s" : 10000,
+    "plasflow_threshold" : 0.8
 }

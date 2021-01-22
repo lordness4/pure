@@ -156,11 +156,11 @@ runDeepVirFinder(virome_dir=virome_dir,
 ################################################################################ WORKS
 # plasmidome part
 plasmidome_dir = os.path.join(output_dir, "plasmidome")
-runPlasFlow(logdir=logdir,
-            plasmidome_dir=plasmidome_dir,
-            infile=contigs_final,
-            plasflow_threshold=config["plasflow_threshold"],
-            conda_sh=config["conda_sh"])
+# runPlasFlow(logdir=logdir,
+#             plasmidome_dir=plasmidome_dir,
+#             infile=contigs_final,
+#             plasflow_threshold=config["plasflow_threshold"],
+#             conda_sh=config["conda_sh"])
 
 
 ################################################################################

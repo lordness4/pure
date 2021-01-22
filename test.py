@@ -1,5 +1,8 @@
-from pure.pure_plasmidome import runPlasFlow
+import os
+import subprocess
 
-logdir
+with open("here.txt", "w") as log:
+    command=". ~/bin/anaconda3/etc/profile.d/conda.sh && conda activate dvf && echo 'success' "
+    subprocess.call(command,shell=True, stdout=log, stderr=log)
 
-runPlasFlow("../data/contigs_final.fasta",)
+#&& conda activate dvf && python /home/domi/Documents/promotion/mvome_pipeline/bin/DeepVirFinder/dvf.py -i ../data/contigs_short.fasta -m /home/domi/Documents/promotion/mvome_pipeline/bin/DeepVirFinder/models/ -o here.txt

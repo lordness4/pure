@@ -15,3 +15,9 @@ def createStructure(output_dir):
     for path in tree:
         current_path = os.path.join(virome_dir, path)
         os.mkdir(current_path)
+
+    plasmidome_dir = os.path.join(output_dir, "plasmidome")
+    tree = ["plasflow"]
+    for path in tree:
+        current_path = os.path.join(plasmidome_dir  , path)
+        os.mkdir(current_path)

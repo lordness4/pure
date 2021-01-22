@@ -145,22 +145,22 @@ virome_dir = os.path.join(output_dir, "virome")
 #           logdir=logdir)
 
 # run deepvirfinder
-# runDeepVirFinder(virome_dir=virome_dir,
-#                  infile=contigs_final,
-#                  logdir=logdir,
-#                  dvf_bin=config["dvf_bin"],
-#                  dvf_models=config["dvf_models"],
-#                  activator_script=config["activator_script"],
-#                  deactivator_script=config["deactivator_script"])
+runDeepVirFinder(virome_dir=virome_dir,
+                 infile=contigs_final,
+                 logdir=logdir,
+                 dvf_bin=config["dvf_bin"],
+                 dvf_models=config["dvf_models"],
+                 conda_sh=config["conda_sh"])
 
 
-################################################################################
+################################################################################ WORKS
 # plasmidome part
 plasmidome_dir = os.path.join(output_dir, "plasmidome")
 runPlasFlow(logdir=logdir,
             plasmidome_dir=plasmidome_dir,
             infile=contigs_final,
-            plasflow_threshold=config["plasflow_threshold"])
+            plasflow_threshold=config["plasflow_threshold"],
+            conda_sh=config["conda_sh"])
 
 
 ################################################################################

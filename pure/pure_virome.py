@@ -53,21 +53,25 @@ def runMarvel(output_dir, marvel_bin, marvel_threads, logdir):
 
 
 
-def runDeepVirFinder(virome_dir, infile, logdir, dvf_bin, dvf_models, activator_script, deactivator_script):
+def runDeepVirFinder(virome_dir, infile, logdir, dvf_bin, dvf_models, conda_sh):
+    """
+    Switches conda env to dvf, then runs dvf on the infile. Logs to log/deepvirfinder.logs .
+    """
     logfile = os.path.join(logdir, "deepvirfinder.log")
     dvf_output_dir = os.path.join(virome_dir, "deepvirfinder")
 
     # then run dvf itself
     command = \
-    "bash {activator_script} dvf &&\
-     python {dvf_bin} -i {infile} -o {dvf_output_dir} -m {dvf_models} &&\
-     bash {deactivator_script}".format(
-         activator_script=activator_script,
+    ". {conda_sh} && \
+    conda activate dvf && \
+    python {dvf_bin} -i {infile} -o {dvf_output_dir} -m {dvf_models} && \
+    conda deactivate".format(
          dvf_bin=dvf_bin,
          infile=infile,
          dvf_output_dir=dvf_output_dir,
          dvf_models=dvf_models,
-         deactivator_script=deactivator_script)
+         conda_sh=conda_sh)
+
 
     with open(logfile, "w") as logfile:
         subprocess.call(command, shell=True, stdout=logfile, stderr=logfile)

@@ -59,7 +59,7 @@ def runDeepVirFinder(virome_dir, infile, logdir, dvf_bin, dvf_models, activator_
 
     # then run dvf itself
     command = \
-    "bash {activator_script} &&\
+    "bash {activator_script} dvf &&\
      python {dvf_bin} -i {infile} -o {dvf_output_dir} -m {dvf_models} &&\
      bash {deactivator_script}".format(
          activator_script=activator_script,

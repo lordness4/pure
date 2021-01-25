@@ -11,7 +11,7 @@ def runVirSorter(virome_dir, vs_db_dir, infile, logdir, conda_sh):
 
     logfile = os.path.join(logdir, "virsorter.log")
     wd = os.path.join(virome_dir, "virsorter")
-    command =
+    command = \
     "bash -c '. {conda_sh} && \
     conda activate vs2 && \
     virsorter run -w {working_dir} -d {vs_db_dir} -i {infile} && \

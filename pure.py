@@ -104,7 +104,7 @@ contigs_deduplicated = os.path.join(output_dir, "assembly/contigs_deduplicated.f
 
 # map reads against deduplicated contigs in order to create bins
 binning_dir = os.path.join(output_dir, "bins")
-s
+
 
 ################################################################################ WORKS
 # filter contigs file by length.

@@ -19,7 +19,7 @@ marvel
 plasflow
   - conda create --name plasflow python=3.5
   - conda install -c jjhelmus tensorflow=0.10.0rc0
-  - conda install -c smaegol plasflow 
+  - conda install -c smaegol plasflow
 
 
 external
@@ -33,3 +33,17 @@ https://github.com/jessieren/DeepVirFinder
 - requires extra conda env, otherwise we run into conflicts
 - install: python=3.6 numpy theano=1.0.3 keras=2.2.4 scikit-learn Biopython h5py=2.10.0
 - WATCH OUT: h5py needs to be version 2.10.0, otherwise we run into a problem.
+
+
+pure env:
+conda create -n pure
+conda install -c agbiome bbtools
+conda install -c bioconda metabat2
+conda install -c bioconda prokka
+
+vs2 env:
+conda create -n vs2 -c bioconda virsorter=2.0
+
+dvf env: (NOT TESTED!)
+conda create -n dvf
+conda install python=3.6 numpy theano=1.0.3 keras=2.2.4 scikit-learn Biopython h5py=2.10.0

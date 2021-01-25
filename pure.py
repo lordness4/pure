@@ -126,17 +126,17 @@ def filterByLength(contigs_input, contigs_output, cutoff_len):
 
 # from here on out: all programs only work on the filtered contigs
 contigs_final = os.path.join(assembly_dir, "contigs_final.fasta")
-# filterByLength(contigs_deduplicated, contigs_final, config["cutoff_len"])
+filterByLength(contigs_deduplicated, contigs_final, config["cutoff_len"])
 
 
 ################################################################################ WORKS
 virome_dir = os.path.join(output_dir, "virome")
 
 # run virsorter
-# runVirSorter(virome_dir=virome_dir,
-#              vs_db_dir=config["virsorter_db_path"],
-#              infile=contigs_final,
-#              logdir=logdir)
+runVirSorter(virome_dir=virome_dir,
+             vs_db_dir=config["virsorter_db_path"],
+             infile=contigs_final,
+             logdir=logdir)
 
 # run marvel
 # runMarvel(output_dir=output_dir,
@@ -156,11 +156,11 @@ virome_dir = os.path.join(output_dir, "virome")
 ################################################################################ WORKS
 # plasmidome part
 plasmidome_dir = os.path.join(output_dir, "plasmidome")
-runPlasFlow(logdir=logdir,
-            plasmidome_dir=plasmidome_dir,
-            infile=contigs_final,
-            plasflow_threshold=config["plasflow_threshold"],
-            conda_sh=config["conda_sh"])
+# runPlasFlow(logdir=logdir,
+#             plasmidome_dir=plasmidome_dir,
+#             infile=contigs_final,
+#             plasflow_threshold=config["plasflow_threshold"],
+#             conda_sh=config["conda_sh"])
 
 
 ################################################################################

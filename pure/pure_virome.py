@@ -30,7 +30,7 @@ def runMarvel(output_dir, marvel_bin, marvel_threads, logdir):
 
     logfile = os.path.join(logdir, "marvel.log")
     # this line gives me the name of the unknown folder in bins/
-    bins_dir = [ f.path for f in os.scandir(os.path.join(output_dir, "bins")) if f.is_dir() ]
+    bins_dir = [f.path for f in os.scandir(os.path.join(output_dir, "bins")) if f.is_dir()]
     bins_dir = bins_dir[0]
 
     virome_dir = os.path.join(output_dir, "virome")

@@ -2,7 +2,7 @@ import os
 import subprocess
 import shutil
 
-def runVirSorter(virome_dir, vs_db_dir, infile, logdir):
+def runVirSorter(virome_dir, vs_db_dir, infile, logdir, conda_sh):
     """
     Runs VirSorter2.0 on the infile, using the VirSorter2 database provided in
     vs_db_dir while logging to logdir/virsorter.log. Output is placed in
@@ -11,10 +11,15 @@ def runVirSorter(virome_dir, vs_db_dir, infile, logdir):
 
     logfile = os.path.join(logdir, "virsorter.log")
     wd = os.path.join(virome_dir, "virsorter")
-    command = "virsorter run -w {working_dir} -d {vs_db_dir} -i {infile}".format(
+    command =
+    "bash -c '. {conda_sh} && \
+    conda activate vs2 && \
+    virsorter run -w {working_dir} -d {vs_db_dir} -i {infile} && \
+    conda deactivate'".format(
         working_dir=wd,
         vs_db_dir=vs_db_dir,
-        infile=infile)
+        infile=infile,
+        conda_sh=conda_sh)
     #rm-tmpdir
     with open(logfile, "w") as logfile:
         subprocess.call(command, shell=True, stdout=logfile, stderr=logfile)

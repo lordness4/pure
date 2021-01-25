@@ -136,7 +136,8 @@ virome_dir = os.path.join(output_dir, "virome")
 runVirSorter(virome_dir=virome_dir,
              vs_db_dir=config["virsorter_db_path"],
              infile=contigs_final,
-             logdir=logdir)
+             logdir=logdir,
+             conda_sh=config["conda_sh"])
 
 # run marvel
 # runMarvel(output_dir=output_dir,

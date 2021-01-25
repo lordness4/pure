@@ -58,7 +58,7 @@ reads2 = args.reads2
 if not (os.path.exists(reads1) or os.path.exists(reads2)):
     print("cannot find reads file: ")
     print("either {} or {} not found. ".format(reads1, reads2))
-    print("will not run marvel, since we cannt create bins without reads!)
+    print("will not run marvel, since we cannt create bins without reads!")
     reads_are_given = False
 else:
     reads_are_given = True

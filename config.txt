@@ -10,5 +10,6 @@
     "metabat_m" : 1500,
     "metabat_s" : 10000,
     "plasflow_threshold" : 0.8,
-    "conda_sh" : "~/bin/anaconda3/etc/profile.d/conda.sh"
+    "conda_sh" : "~/bin/anaconda3/etc/profile.d/conda.sh",
+    "max_threads" : 4
 }

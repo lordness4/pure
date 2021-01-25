@@ -58,8 +58,10 @@ reads2 = args.reads2
 if not (os.path.exists(reads1) or os.path.exists(reads2)):
     print("cannot find reads file: ")
     print("either {} or {} not found. ".format(reads1, reads2))
-    print("exiting...")
-    exit()
+    print("will not run marvel, since we cannt create bins without reads!)
+    reads_are_given = False
+else:
+    reads_are_given = True
 
 output_dir = args.output_dir
 output_dir = os.path.abspath(output_dir)
@@ -72,9 +74,18 @@ if os.path.exists(output_dir):
 
 # contig file given by the user
 contig_file = args.contigs_file
+
 # should we clean up afterwards?
 cleanup = args.cleanup
 
+
+# if nothing is given (should be caught by sys.argv < 7)
+if reads_are_given or contig_file:
+    pass
+else:
+    print("either contig file or reads must be provided!")
+    print("exiting...")
+    exit()
 
 ################################################################################ WORKS
 # create Structure
@@ -89,7 +100,7 @@ logdir = os.path.join(output_dir, "log")
 assembly_dir = os.path.join(output_dir, "assembly")
 # this only runs when we have no contigs file, else we copy over the contigs_file
 if not contig_file:
-    runMetaspades(assembly_dir, reads1, reads2, logdir)
+    runMetaspades(assembly_dir, reads1, reads2, logdir, config["max_threads"])
 else:
     shutil.copy(contig_file, os.path.join(output_dir, "assembly/contigs.fasta"),
                 follow_symlinks=True)
@@ -136,10 +147,11 @@ virome_dir = os.path.join(output_dir, "virome")
 #              conda_sh=config["conda_sh"])
 
 # run marvel
-# runMarvel(output_dir=output_dir,
-#           marvel_bin=config["marvel_bin"],
-#           marvel_threads=config["marvel_threads"],
-#           logdir=logdir)
+if reads_are_given:
+    runMarvel(output_dir=output_dir,
+              marvel_bin=config["marvel_bin"],
+              marvel_threads=config["marvel_threads"],
+              logdir=logdir)
 
 # run deepvirfinder
 # runDeepVirFinder(virome_dir=virome_dir,

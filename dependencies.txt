@@ -40,7 +40,8 @@ conda create -n pure
 conda install -c agbiome bbtools
 conda install -c bioconda metabat2
 conda install -c bioconda prokka
-conda install -c anaconda biopython 
+conda install -c anaconda biopython
+conda install -c bioconda spades
 
 vs2 env:
 conda create -n vs2 -c bioconda virsorter=2.0

@@ -7,10 +7,10 @@ def runPlasFlow(logdir, plasmidome_dir, infile, plasflow_threshold, conda_sh):
     output = os.path.join(plasflow_dir, "plasflow_out.tsv")
 
     command = \
-    ". {conda_sh} && \
+    "bash -c '. {conda_sh} && \
     conda activate plasflow && \
     PlasFlow.py --input {infile} --output {output} --threshold {threshold} && \
-    conda deactivate".format(
+    conda deactivate'".format(
         infile=infile,
         output=output,
         threshold=plasflow_threshold,

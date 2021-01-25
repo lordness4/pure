@@ -62,16 +62,17 @@ def runDeepVirFinder(virome_dir, infile, logdir, dvf_bin, dvf_models, conda_sh):
 
     # then run dvf itself
     command = \
-    ". {conda_sh} && \
+    "bash -c '. {conda_sh} && \
     conda activate dvf && \
     python {dvf_bin} -i {infile} -o {dvf_output_dir} -m {dvf_models} && \
-    conda deactivate".format(
+    conda deactivate'".format(
          dvf_bin=dvf_bin,
          infile=infile,
          dvf_output_dir=dvf_output_dir,
          dvf_models=dvf_models,
          conda_sh=conda_sh)
 
+    print(command)
 
     with open(logfile, "w") as logfile:
         subprocess.call(command, shell=True, stdout=logfile, stderr=logfile)

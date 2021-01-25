@@ -59,7 +59,7 @@ if not (os.path.exists(reads1) or os.path.exists(reads2)):
     print("cannot find reads file: ")
     print("either {} or {} not found. ".format(reads1, reads2))
     print("exiting...")
-    exit()
+    #exit()
 
 output_dir = args.output_dir
 output_dir = os.path.abspath(output_dir)
@@ -68,7 +68,7 @@ if os.path.exists(output_dir):
     print("output directory already exists: ")
     print("{}".format(output_dir))
     print("exiting...")
-    exit()
+    #exit()
 
 # contig file given by the user
 contig_file = args.contigs_file
@@ -78,7 +78,7 @@ cleanup = args.cleanup
 
 ################################################################################ WORKS
 # create Structure
-createStructure(output_dir)
+# createStructure(output_dir)
 
 # log directory
 logdir = os.path.join(output_dir, "log")
@@ -99,7 +99,7 @@ contig_file = os.path.join(output_dir, "assembly/contigs.fasta")
 
 ################################################################################ WORKS
 # deduplicate using bbmap
-deduplicateContigs(contig_file=contig_file, assembly_dir=assembly_dir, logdir=logdir)
+# deduplicateContigs(contig_file=contig_file, assembly_dir=assembly_dir, logdir=logdir)
 contigs_deduplicated = os.path.join(output_dir, "assembly/contigs_deduplicated.fasta")
 
 # map reads against deduplicated contigs in order to create bins
@@ -126,10 +126,10 @@ def filterByLength(contigs_input, contigs_output, cutoff_len):
 
 # from here on out: all programs only work on the filtered contigs
 contigs_final = os.path.join(assembly_dir, "contigs_final.fasta")
-filterByLength(contigs_deduplicated, contigs_final, config["cutoff_len"])
+# filterByLength(contigs_deduplicated, contigs_final, config["cutoff_len"])
 
 
-################################################################################ PROBLEMS WITH CONDA
+################################################################################ WORKS
 virome_dir = os.path.join(output_dir, "virome")
 
 # run virsorter
@@ -145,22 +145,22 @@ virome_dir = os.path.join(output_dir, "virome")
 #           logdir=logdir)
 
 # run deepvirfinder
-runDeepVirFinder(virome_dir=virome_dir,
-                 infile=contigs_final,
-                 logdir=logdir,
-                 dvf_bin=config["dvf_bin"],
-                 dvf_models=config["dvf_models"],
-                 conda_sh=config["conda_sh"])
+# runDeepVirFinder(virome_dir=virome_dir,
+#                  infile=contigs_final,
+#                  logdir=logdir,
+#                  dvf_bin=config["dvf_bin"],
+#                  dvf_models=config["dvf_models"],
+#                  conda_sh=config["conda_sh"])
 
 
 ################################################################################ WORKS
 # plasmidome part
 plasmidome_dir = os.path.join(output_dir, "plasmidome")
-# runPlasFlow(logdir=logdir,
-#             plasmidome_dir=plasmidome_dir,
-#             infile=contigs_final,
-#             plasflow_threshold=config["plasflow_threshold"],
-#             conda_sh=config["conda_sh"])
+runPlasFlow(logdir=logdir,
+            plasmidome_dir=plasmidome_dir,
+            infile=contigs_final,
+            plasflow_threshold=config["plasflow_threshold"],
+            conda_sh=config["conda_sh"])
 
 
 ################################################################################

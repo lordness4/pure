@@ -22,3 +22,11 @@ caveat: switches the environemnt (seen if I add an env list | grep "*" to the sc
 
 5. change the first line of ~/bin/anaconda3/etc/profile.d/conda.sh to a shebang line as suggest online
 This does not do anything different than 3.
+
+
+...
+drummroll
+...
+
+I think IVE GOT IT!
+bash -c '. ~/blalba/conda.sh && conda activate && your command && conda deactivate'

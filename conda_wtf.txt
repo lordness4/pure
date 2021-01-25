@@ -1,0 +1,24 @@
+# possible combinations of activating a conda env and running a script/program that requires the activated env
+
+1. the dot method as a subprocess
+. ~/bin/anaconda3/etc/profile.d/conda.sh && conda activate env && run your stuff!
+caveat: does not work for env "dvf". Only for this one. Wtf? Apparently I could fix it by removing the "function" keywords within the scripts. Aha.Sure. The culprit is theano=1.0.3. If this package is installed, the activate script changes and somehow adds "function" to some scripts and it breaks. Magic. wtf?
+
+1.1 THIS SHOULD BE THE SAME BUT IT ISNT!!!
+source ~/bin/anaconda3/etc/profile.d/conda.sh && conda activate env && run your stuff
+caveat: this gives me the "/bin/sh: 1: source not found" error we have in #3.
+
+2. the simple activate method (as a subprocess)
+conda activate env
+caveat: does not work, due to "initialize your shell". Wtf?
+
+3. using source activate env
+source activate env
+caveat: /bin/sh: 1: source: not found - I've got no idea why this is happening. Wtf?
+
+4. using an activator script:
+bash activator_script.sh env (e.g. plasflow) && plasflow
+caveat: switches the environemnt (seen if I add an env list | grep "*" to the script) but "plasflow not found". If I add an ""&& env list" directly to the command, the env is not active anymore. Adding "-i" to the bash script does not change anything. Wtf?
+
+5. change the first line of ~/bin/anaconda3/etc/profile.d/conda.sh to a shebang line as suggest online
+This does not do anything different than 3.

@@ -1,1 +1,0 @@
-/bin/sh: 5: /home/domi/bin/anaconda3/envs/dvf/etc/conda/activate.d/activate-binutils_linux-64.sh: Syntax error: "(" unexpected

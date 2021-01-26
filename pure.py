@@ -113,9 +113,6 @@ contig_file = os.path.join(output_dir, "assembly/contigs.fasta")
 deduplicateContigs(contig_file=contig_file, assembly_dir=assembly_dir, logdir=logdir)
 contigs_deduplicated = os.path.join(output_dir, "assembly/contigs_deduplicated.fasta")
 
-# map reads against deduplicated contigs in order to create bins
-binning_dir = os.path.join(output_dir, "bins")
-
 
 ################################################################################ WORKS
 # filter contigs file by length.
@@ -134,6 +131,14 @@ def filterByLength(contigs_input, contigs_output, cutoff_len):
 # from here on out: all programs only work on the filtered contigs
 contigs_final = os.path.join(assembly_dir, "contigs_final.fasta")
 filterByLength(contigs_deduplicated, contigs_final, config["cutoff_len"])
+
+
+################################################################################
+# map reads against deduplicated contigs in order to create bins
+binning_dir = os.path.join(output_dir, "bins")
+createBins(reads1, reads2, contig_file=contigs_final, logdir=logdir,\
+           outdir=output_dir, metabat_m=config["metabat_m"], metabat_s=config["metabat_s"])
+
 
 
 ################################################################################ WORKS

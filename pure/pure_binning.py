@@ -8,7 +8,7 @@ def createBins(reads1, reads2, contig_file, logdir, bin_dir, metabat_m, metabat_
     bamfile=os.path.join(bin_dir, "sample.bam")
     sorted_bamfile=os.path.join(bin_dir, "sample.sorted.bam")
 
-    with open(logfile, "w") as logfile:s
+    with open(logfile, "w") as logfile:
         # first index
         command="bowtie2-build {contig_file} {index_file}".format(
             contig_file=contig_file,

@@ -42,6 +42,7 @@ conda install -c bioconda metabat2
 conda install -c bioconda prokka
 conda install -c anaconda biopython
 conda install -c bioconda spades
+conda install -c bioconda bowtie2 
 
 vs2 env:
 conda create -n vs2 -c bioconda virsorter=2.0

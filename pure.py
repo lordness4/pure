@@ -140,36 +140,37 @@ filterByLength(contigs_deduplicated, contigs_final, config["cutoff_len"])
 virome_dir = os.path.join(output_dir, "virome")
 
 # run virsorter
-# runVirSorter(virome_dir=virome_dir,
-#              vs_db_dir=config["virsorter_db_path"],
-#              infile=contigs_final,
-#              logdir=logdir,
-#              conda_sh=config["conda_sh"])
+runVirSorter(virome_dir=virome_dir,
+             vs_db_dir=config["virsorter_db_path"],
+             infile=contigs_final,
+             logdir=logdir,
+             conda_sh=config["conda_sh"])
 
 # run marvel
 if reads_are_given:
     runMarvel(output_dir=output_dir,
               marvel_bin=config["marvel_bin"],
               marvel_threads=config["marvel_threads"],
-              logdir=logdir)
+              logdir=logdir,
+              conda_sh=conda_sh)
 
 # run deepvirfinder
-# runDeepVirFinder(virome_dir=virome_dir,
-#                  infile=contigs_final,
-#                  logdir=logdir,
-#                  dvf_bin=config["dvf_bin"],
-#                  dvf_models=config["dvf_models"],
-#                  conda_sh=config["conda_sh"])
+runDeepVirFinder(virome_dir=virome_dir,
+                 infile=contigs_final,
+                 logdir=logdir,
+                 dvf_bin=config["dvf_bin"],
+                 dvf_models=config["dvf_models"],
+                 conda_sh=config["conda_sh"])
 
 
 ################################################################################ WORKS
 # plasmidome part
 plasmidome_dir = os.path.join(output_dir, "plasmidome")
-# runPlasFlow(logdir=logdir,
-#             plasmidome_dir=plasmidome_dir,
-#             infile=contigs_final,
-#             plasflow_threshold=config["plasflow_threshold"],
-#             conda_sh=config["conda_sh"])
+runPlasFlow(logdir=logdir,
+            plasmidome_dir=plasmidome_dir,
+            infile=contigs_final,
+            plasflow_threshold=config["plasflow_threshold"],
+            conda_sh=config["conda_sh"])
 
 
 ################################################################################

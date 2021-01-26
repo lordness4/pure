@@ -45,16 +45,26 @@ def runMarvel(output_dir, marvel_bin, marvel_threads, logdir):
     # switch cwd to marvel, run marvel on the bins, switch back
     cwd = os.getcwd()
     os.chdir(marvel_dir)
-    command = "python3 {marvel_bin} -i {bins_dir} -t {marvel_threads}".format(
+
+    command = \
+    "bash -c '. {conda_sh} && \
+    conda activate marvel && \
+    python3 {marvel_bin} -i {bins_dir} -t {marvel_threads} &&\
+    conda deactivate'".format(
+        conda_sh=conda_sh,
         marvel_bin=marvel_bin,
         bins_dir=bins_dir,
         marvel_threads=marvel_threads)
+
     with open(logfile, "w") as logfile:
         subprocess.call(command, shell=True, stdout=logfile, stderr=logfile)
     os.chdir(cwd)
 
     # move files from bins/blabla/results back to virome/marvel
+    marvel_results_dir = os.path.join(bins_dir, "results/phage_bins")
+    marvel_output_dir = os.path.join(output_dir, "virome/marvel")
 
+    shutil.copytree(marvel_results_dir, marvel_output_dir)
 
 
 

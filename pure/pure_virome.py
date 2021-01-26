@@ -24,7 +24,7 @@ def runVirSorter(virome_dir, vs_db_dir, infile, logdir, conda_sh):
     with open(logfile, "w") as logfile:
         subprocess.call(command, shell=True, stdout=logfile, stderr=logfile)
 
-def runMarvel(output_dir, marvel_bin, marvel_threads, logdir):
+def runMarvel(output_dir, marvel_bin, marvel_threads, logdir, conda_sh):
     """
     Runs MARVEL (with a certain number of threads) on the bins created in the
     binning process, which can be found at

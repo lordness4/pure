@@ -1,3 +1,4 @@
 # folders to ignore
 __pycache__
 .snakemake
+config.txt

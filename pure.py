@@ -152,7 +152,7 @@ if reads_are_given:
               marvel_bin=config["marvel_bin"],
               marvel_threads=config["marvel_threads"],
               logdir=logdir,
-              conda_sh=conda_sh)
+              conda_sh=config["conda_sh"])
 
 # run deepvirfinder
 runDeepVirFinder(virome_dir=virome_dir,

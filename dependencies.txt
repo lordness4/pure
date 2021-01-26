@@ -52,3 +52,8 @@ conda install python=3.6 numpy theano=1.0.3 keras=2.2.4 scikit-learn Biopython h
 
 marvel env:
 conda install numpy biopython scipy scikit-learn=0.21.1
+
+plasflow env:
+conda create -n plasflow python=3.5
+conda install -c jjhelmus tensorflow=0.10.0rc0
+conda install -c smaegol plasflow

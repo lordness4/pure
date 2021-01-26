@@ -42,7 +42,7 @@ conda install -c bioconda metabat2
 conda install -c bioconda prokka
 conda install -c anaconda biopython
 conda install -c bioconda spades
-conda install -c bioconda bowtie2 
+conda install -c bioconda bowtie2
 
 vs2 env:
 conda create -n vs2 -c bioconda virsorter=2.0
@@ -53,6 +53,9 @@ conda install python=3.6 numpy theano=1.0.3 keras=2.2.4 scikit-learn Biopython h
 
 marvel env:
 conda install numpy biopython scipy scikit-learn=0.21.1
+conda install -c bioconda prokka
+# most likely also also hmmer?
+
 
 plasflow env:
 conda create -n plasflow python=3.5

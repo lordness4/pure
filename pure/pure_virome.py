@@ -62,7 +62,7 @@ def runMarvel(output_dir, marvel_bin, marvel_threads, logdir, conda_sh):
 
     # move files from bins/blabla/results back to virome/marvel
     marvel_results_dir = os.path.join(bins_dir, "results/phage_bins")
-    marvel_output_dir = os.path.join(output_dir, "virome/marvel")
+    marvel_output_dir = os.path.join(output_dir, "virome/marvel/phage_bins")
 
     shutil.copytree(marvel_results_dir, marvel_output_dir)
 

@@ -2,3 +2,5 @@
 __pycache__
 .snakemake
 config.txt
+./pure/scripts/.RData
+./pure/scripts/.Rhistory

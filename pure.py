@@ -3,6 +3,7 @@ import argparse
 import sys
 import json
 import shutil
+import pprint
 from Bio import SeqIO
 from pure.pure_structure import createStructure
 from pure.pure_metaspades import runMetaspades
@@ -23,34 +24,68 @@ f.close()
 config = json.loads(data)
 
 
-################################################################################ WORKS
+################################################################################
 # handle arguments
 parser = argparse.ArgumentParser()
 
-parser.add_argument("--reads1", "-r1",
-                    help="<filename> file with forward paired-end reads", required=True)
+# reads metagenome
+parser.add_argument("--metagenome_reads1", "-mr1",
+                    help="<filename> file with forward paired-end reads, from which --metagenome_contigs_file was assembled")
+parser.add_argument("--metagenome_reads2", "-mr2",
+                    help="<filename> file with reverse paired-end reads, from which --metagenome_contigs_file was assembled")
+# reads virome
+parser.add_argument("--virome_reads1", "-vr1",
+                    help="<filename> file with forward paired-end reads, from which --virome_contigs_file was assembled")
+parser.add_argument("--virome_reads2", "-vr2",
+                    help="<filename> file with reverse paired-end reads, from which --virome_contigs_file was assembled")
+# contig file metagnome
+parser.add_argument("--metagenome_contigs_file", "-mc",
+                    help="optional <filename> multifasta file containing all contigs assembled form mr1 and mr2 (skips assembly)")
+# contig file virome
+parser.add_argument("--virome_contigs_file", "-vc",
+                    help="optional <filename> multifasta file containing all contigs assembled form vr1 and vr2 (skips assembly)")
 
-parser.add_argument("--reads2", "-r2",
-                    help="<filename> file with reverse paired-end reads", required=True)
-
+# output dir
 parser.add_argument("--output_dir", "-o",
                     help="<output_dir> directory to store all the resulting files", required=True)
-
-parser.add_argument("--contigs_file", "-c",
-                    help="optional <filename> multifasta file containing all contigs assembled form r1 and r2 (skips assembly)")
-
+# cleanup flag
 parser.add_argument("--cleanup", "-cu",
                     help="optional <TRUE/FALSE> flag. Default=FALSE. If TRUE, all intermediate files will be deleted, in order to save space.")
 
 args = parser.parse_args()
 
-# print help if not enough arguments
-if len(sys.argv)<7:
-    parser.print_help(sys.stderr)
-    exit()
+
+################################################################################
+# parse inputs
+metagenome_reads1 = args.metagenome_reads1
+metagenome_reads2 = args.metagenome_reads2
+
+virome_reads1 = args.virome_reads1
+virome_reads2 = args.virome_reads2
+
+metagenome_contigs_file = args.metagenome_contigs_file
+virome_contigs_file = args.virome_contigs_file
+
+output_dir = args.output_dir
+
+clean_up = args.cleanup
 
 
-################################################################################ WORKS
+################################################################################
+# run settings
+settings = {
+    "run virsorter": True,
+    "run deepvirfinder": True,
+    "run marvel": True,
+    "run plasflow": True,
+    "deduplicate metagenome": True,
+    "deduplicate virome": True,
+    "map back to metagenome": True,
+}
+
+
+
+################################################################################
 # check arguments given
 reads1 = args.reads1
 reads2 = args.reads2
@@ -87,7 +122,7 @@ else:
     print("exiting...")
     exit()
 
-################################################################################ WORKS
+################################################################################
 # create Structure
 createStructure(output_dir)
 
@@ -95,7 +130,7 @@ createStructure(output_dir)
 logdir = os.path.join(output_dir, "log")
 
 
-################################################################################ HAS TROUBLE WITH RAM
+################################################################################
 # run metaspades
 assembly_dir = os.path.join(output_dir, "assembly")
 # this only runs when we have no contigs file, else we copy over the contigs_file
@@ -108,13 +143,13 @@ else:
 contig_file = os.path.join(output_dir, "assembly/contigs.fasta")
 
 
-################################################################################ WORKS
+################################################################################
 # deduplicate using bbmap
 deduplicateContigs(contig_file=contig_file, assembly_dir=assembly_dir, logdir=logdir)
 contigs_deduplicated = os.path.join(output_dir, "assembly/contigs_deduplicated.fasta")
 
 
-################################################################################ WORKS
+################################################################################
 # filter contigs file by length.
 # NOTE: I should think about the figures in the end: do the incorporate the shorter sequences?
 
@@ -141,7 +176,7 @@ createBins(reads1, reads2, contig_file=contigs_final, logdir=logdir,\
 
 
 
-################################################################################ WORKS
+################################################################################
 virome_dir = os.path.join(output_dir, "virome")
 
 # run virsorter
@@ -168,7 +203,7 @@ runDeepVirFinder(virome_dir=virome_dir,
                  conda_sh=config["conda_sh"])
 
 
-################################################################################ WORKS
+################################################################################
 # plasmidome part
 plasmidome_dir = os.path.join(output_dir, "plasmidome")
 runPlasFlow(logdir=logdir,

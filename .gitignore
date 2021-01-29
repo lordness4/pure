@@ -1,7 +1,6 @@
 # folders to ignore
 __pycache__
 .snakemake
-config.txt
 ./pure/scripts/.RData
 ./pure/scripts/.Rhistory
 test.py

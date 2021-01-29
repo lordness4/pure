@@ -116,23 +116,10 @@ if cleanup:
 
 ################################################################################
 # create Structure
-createStructure(output_dir)
+createStructure(output_dir, input_files)
 
 # log directory
 logdir = os.path.join(output_dir, "log")
-
-
-################################################################################
-# run metaspades
-assembly_dir = os.path.join(output_dir, "assembly")
-# this only runs when we have no contigs file, else we copy over the contigs_file
-if not contig_file:
-    runMetaspades(assembly_dir, reads1, reads2, logdir, config["max_threads"])
-else:
-    shutil.copy(contig_file, os.path.join(output_dir, "assembly/contigs.fasta"),
-                follow_symlinks=True)
-
-contig_file = os.path.join(output_dir, "assembly/contigs.fasta")
 
 
 ################################################################################

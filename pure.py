@@ -72,6 +72,21 @@ clean_up = args.cleanup
 
 
 ################################################################################
+# validate input
+if os.path.exists(output_dir):
+    print("{} already exists. Exiting.".format(output_dir))
+    exit()
+
+input_files = [metagenome_reads1, metagenome_reads2, virome_reads1, \
+               virome_reads2, virome_contigs_file, metagenome_contigs_file]
+
+for path in input_files:
+    if path is not None and not os.path.exists(path):
+        print("{} can not be found. Exiting.".format(path))
+        exit()
+
+
+################################################################################
 # run settings
 settings = {
     "run virsorter": True,
@@ -81,46 +96,23 @@ settings = {
     "deduplicate metagenome": True,
     "deduplicate virome": True,
     "map back to metagenome": True,
+    "cleanup": False
 }
 
+# adjust these settings based on input
+if virome_reads1 or virome_reads2 is None:
+    settings["run marvel"] = False
 
+if virome_contigs_file is None:
+    settings["deduplicate virome"] = False
 
-################################################################################
-# check arguments given
-reads1 = args.reads1
-reads2 = args.reads2
+if metagenome_contigs_file is None:
+    settings["deduplicate metagenome"] = False
+    settings["map back to metagenome"] = False
 
-if not (os.path.exists(reads1) or os.path.exists(reads2)):
-    print("cannot find reads file: ")
-    print("either {} or {} not found. ".format(reads1, reads2))
-    print("will not run marvel, since we cannt create bins without reads!")
-    reads_are_given = False
-else:
-    reads_are_given = True
+if cleanup:
+    settings["cleanup"] = True
 
-output_dir = args.output_dir
-output_dir = os.path.abspath(output_dir)
-
-if os.path.exists(output_dir):
-    print("output directory already exists: ")
-    print("{}".format(output_dir))
-    print("exiting...")
-    exit()
-
-# contig file given by the user
-contig_file = args.contigs_file
-
-# should we clean up afterwards?
-cleanup = args.cleanup
-
-
-# if nothing is given (should be caught by sys.argv < 7)
-if reads_are_given or contig_file:
-    pass
-else:
-    print("either contig file or reads must be provided!")
-    print("exiting...")
-    exit()
 
 ################################################################################
 # create Structure
